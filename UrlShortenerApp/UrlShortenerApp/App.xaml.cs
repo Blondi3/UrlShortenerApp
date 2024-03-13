@@ -5,7 +5,7 @@ namespace UrlShortenerApp
 {
     public partial class App : Application
     {
-        private string apiKey = "12a65cbd490f477ca424b5a5f0604f8c";
+        private string apiKey = "e858d127adf44b51b48dd02e3e291867";
         public string ApiKey
         {
             get
