@@ -27,32 +27,33 @@ namespace UrlShortenerApp.Areas.Pages
         {
             try
             {
-                //    if (!string.IsNullOrEmpty(model.ToBeShortenedUrl))
-                //    {
-                //        var result = model.ShortenUrlHttpRequestSentAndIsSuccessful(((UrlShortenerApp.App)App.Current).ApiKey);
-
-                //        if (result.Result)
-                //        {
-                model.OriginalUrl = "TestOriginalUrl2";
-                model.ToBeShortenedUrl = "TestShortenedUrl2";
-                model.HasNotShortenedUrl = !model.HasNotShortenedUrl;
-
-                await App.Database.SaveItemAsync(new TblPastShortenedUrls
+                if (!string.IsNullOrEmpty(model.ToBeShortenedUrl))
                 {
-                    OriginalUrl = model.OriginalUrl,
-                    ShortenedUrl = model.ToBeShortenedUrl,
-                    DateUrlSaved = DateTime.Now
-                });
-                //}
-                //    else
-                //    {
-                //        await DisplayAlert("Error", "Request failed, please try again", "OK");
-                //    }
-                //}
-                //else
-                //{
-                //    await DisplayAlert("Error", "Please enter a url to shorten", "OK");
-                //}
+                    var result = await model.ShortenUrlHttpRequestSentAndIsSuccessful(((UrlShortenerApp.App)App.Current).ApiKey);
+
+                    if (result.Result)
+                    {
+                        // To not use limited url shortening cap: uncomment dummy data, comment out ShortenUrlHttpRequestSentAndIsSuccessful method and both if statements
+                        //model.OriginalUrl = "TestOriginalUrl2";
+                        //model.ToBeShortenedUrl = "TestShortenedUrl2";
+                        //model.HasNotShortenedUrl = !model.HasNotShortenedUrl;
+
+                        await App.Database.SaveItemAsync(new TblPastShortenedUrls
+                        {
+                            OriginalUrl = model.OriginalUrl,
+                            ShortenedUrl = model.ToBeShortenedUrl,
+                            DateUrlSaved = DateTime.Now
+                        });
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", "Request failed, please try again", "OK");
+                    }
+                }
+                else
+                {
+                    await DisplayAlert("Error", "Please enter a url to shorten", "OK");
+                }
             }
             catch (WebException ex)
             {
