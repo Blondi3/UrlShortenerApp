@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UrlShortenerApp.Areas.Pages.UrlShortenerPage"
+             xmlns:converters="clr-namespace:UrlShortenerApp.Areas.Converter"
+             Title="Url Shortener">
+    <ContentPage.Resources>
+        <converters:InvertBooleanConverter x:Key="invertBooleanConverter"/>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="viewPastUrlsPageToolbarItem"
+                     Text="View past Url(s)"
+                     Clicked="NavigateToViewPastUrlsPageClicked"/>
+    </ContentPage.ToolbarItems>
+    <AbsoluteLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+        <FlexLayout x:Name="elementContainer"
+                        Direction="Column"
+                        IsVisible="True"
+                        JustifyContent="SpaceEvenly"
+                        VerticalOptions="CenterAndExpand">
+            <StackLayout HorizontalOptions="Center">
+                <Image x:Name="shortenImage"
+                           HorizontalOptions="CenterAndExpand"
+                           Source="/Resources/Images/shorten_image.png"
+                           VerticalOptions="CenterAndExpand" />
+            </StackLayout>
+            <Label x:Name="toBeShortenedUrlLabel"
+                   Text="{Binding ToBeShortenedUrlLabel, Mode=TwoWay}"/>
+            <Entry x:Name="toBeShortenedUrl"
+                   Text="{Binding ToBeShortenedUrl, Mode=TwoWay}"
+                   IsEnabled="{Binding HasNotShortenedUrl, Mode=TwoWay}"/>
+            <Label x:Name="originalUrlLabel"
+                   Text="{Binding OriginalUrlLabel}"
+                   IsVisible="{Binding HasNotShortenedUrl, Converter={StaticResource invertBooleanConverter}, Mode=TwoWay}"/>
+            <Entry x:Name="originalUrl"
+                   HorizontalOptions="FillAndExpand"
+                   IsEnabled="False"
+                   Text="{Binding OriginalUrl, Mode=TwoWay}"
+                   IsVisible="{Binding HasNotShortenedUrl, Converter={StaticResource invertBooleanConverter}, Mode=TwoWay}"/>
+            <Button x:Name="shortenUrlButton"
+                    Text="ShortenUrl"
+                    IsVisible="{Binding HasNotShortenedUrl, Mode=TwoWay}"
+                    Clicked='ShortenUrlButtonClicked'/>
+            <Button x:Name="backButton"
+                    Text="Back"
+                    IsVisible="{Binding HasNotShortenedUrl, Converter={StaticResource invertBooleanConverter}, Mode=TwoWay}"
+                    Clicked='BackButtonClicked'/>
+        </FlexLayout>
+    </AbsoluteLayout>
+</ContentPage>

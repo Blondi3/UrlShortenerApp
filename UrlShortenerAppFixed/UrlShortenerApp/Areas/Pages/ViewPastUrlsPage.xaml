@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UrlShortenerApp.Areas.Pages.ViewPastUrlsPage"
+             xmlns:converters="clr-namespace:UrlShortenerApp.Areas.Converter"
+             Title="View past url(s)">
+    <ContentPage.Resources>
+        <converters:InvertBooleanConverter x:Key="invertBooleanConverter"/>
+    </ContentPage.Resources>
+    <FlexLayout VerticalOptions="CenterAndExpand">
+        <CollectionView x:Name="viewPastShortenedUrlsCollectionView"
+                        VerticalOptions="StartAndExpand"
+                        HorizontalOptions="CenterAndExpand"
+                        BackgroundColor="White">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout Padding="5">
+                        <Label x:Name="dateUrlSavedLabel:" 
+                               Text="Date your url was saved"/>
+                        <Label x:Name="dateUrlSaved" 
+                               Text="{Binding DateUrlSaved, Mode=TwoWay}"/>
+                        <Label x:Name="toBeShortenedUrlLabel" 
+                               Text="Your shortened url:"/>
+                        <Label x:Name="toBeShortenedUrl" 
+                               Text="{Binding ToBeShortenedUrl, Mode=TwoWay}"/>
+                        <Label x:Name="originalUrlLabel" 
+                               Text="Your original url:"/>
+                        <Label x:Name="OriginalUrl" 
+                               Text="{Binding OriginalUrl, Mode=TwoWay}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </FlexLayout>
+</ContentPage>
